@@ -1,6 +1,8 @@
 package com.shubham.Hospital.Appointment.System.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -22,20 +24,21 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patientId")
-    @JsonBackReference
+    @JsonBackReference(value = "patientReference")
     private Patient patient;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctorId")
-    @JsonBackReference
+    @JsonBackReference(value = "doctorReference")
     private Doctor doctor;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime appointmentCreatedAt;
 
     @OneToOne(mappedBy = "appointment", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Prescription prescription;
 
+    @PrePersist
     protected void createdAt() {
         appointmentCreatedAt = LocalDateTime.now();
     }

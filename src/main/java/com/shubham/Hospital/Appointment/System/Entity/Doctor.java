@@ -1,5 +1,6 @@
 package com.shubham.Hospital.Appointment.System.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -22,10 +23,11 @@ public class Doctor {
     private String doctorEmail;
     private Long doctorPhoneNum;
     private String doctorExperience;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime doctorCreatedAt;
 
     @OneToMany(mappedBy = "doctor", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonManagedReference(value = "doctorReference")
     private Set<Appointment> appointments = new HashSet<>();
 
     @PrePersist

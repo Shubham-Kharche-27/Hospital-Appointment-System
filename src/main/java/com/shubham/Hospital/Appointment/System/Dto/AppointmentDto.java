@@ -13,7 +13,7 @@ public class AppointmentDto {
     private Long appointmentId;
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
-    private AppointmentStatus appointmentStatus;
+    private AppointmentStatus appointmentStatus = AppointmentStatus.PENDING;
     private String appointmentNotes;
     private Long patientId;
     private Long doctorId;

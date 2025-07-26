@@ -1,6 +1,7 @@
 package com.shubham.Hospital.Appointment.System.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class Prescription {
     private String medication;
     private String diagnosis;
     private String advice;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime prescriptionCreatedAt;
 
     @PrePersist
