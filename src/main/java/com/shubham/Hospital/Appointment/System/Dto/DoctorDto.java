@@ -18,7 +18,7 @@ public class DoctorDto {
     private Long doctorPhoneNum;
     private String doctorExperience;
     private LocalDateTime doctorCreatedAt;
-
+    private Set<Appointment> appointments = new HashSet<>();
     public Long getDoctorId() {
         return doctorId;
     }
@@ -89,5 +89,13 @@ public class DoctorDto {
 
     public void setDoctorCreatedAt(LocalDateTime doctorCreatedAt) {
         this.doctorCreatedAt = doctorCreatedAt;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }

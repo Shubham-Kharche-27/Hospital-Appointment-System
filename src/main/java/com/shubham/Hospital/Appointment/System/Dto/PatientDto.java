@@ -19,6 +19,7 @@ public class PatientDto {
     private String patientAddress;
     private BloodGroup patientBloodGroup;
     private LocalDateTime patientCreatedAt;
+    private Set<Appointment> appointments = new HashSet<>();
 
     public Long getPatientId() {
         return patientId;
@@ -90,5 +91,13 @@ public class PatientDto {
 
     public void setPatientCreatedAt(LocalDateTime patientCreatedAt) {
         this.patientCreatedAt = patientCreatedAt;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }
