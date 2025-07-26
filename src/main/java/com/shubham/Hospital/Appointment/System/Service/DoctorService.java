@@ -21,59 +21,59 @@ public class DoctorService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Page<DoctorDto> getAllDoctorData(int pageNum,int pageSize,String sortBy){
-        Pageable pageable = PageRequest.of(pageNum,pageSize, Sort.by(sortBy));
+    public Page<DoctorDto> getAllDoctorData(int pageNum, int pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.by(sortBy));
         Page<Doctor> doctorPage = doctorRepo.findAll(pageable);
-        Page<DoctorDto> doctorDtos = doctorPage.map(Doctor->modelMapper.map(Doctor,DoctorDto.class));
+        Page<DoctorDto> doctorDtos = doctorPage.map(Doctor -> modelMapper.map(Doctor, DoctorDto.class));
         return doctorDtos;
     }
 
-    public DoctorDto getDoctorDataById(Long doctorId){
+    public DoctorDto getDoctorDataById(Long doctorId) {
         Doctor doctor = doctorRepo.findById(doctorId)
-                .orElseThrow(()->new DoctorNotFoundException("Doctor does not exist!"));
+                .orElseThrow(() -> new DoctorNotFoundException("Doctor does not exist!"));
         return modelMapper.map(doctor, DoctorDto.class);
     }
 
-    public String createDoctorData(DoctorDto doctorDto){
-        if(doctorDto==null){
+    public String createDoctorData(DoctorDto doctorDto) {
+        if (doctorDto == null) {
             throw new DoctorNotFoundException("Doctor data is empty!");
         }
-        Doctor doctor = modelMapper.map(doctorDto,Doctor.class);
+        Doctor doctor = modelMapper.map(doctorDto, Doctor.class);
         doctorRepo.save(doctor);
         return "Doctor data created successfully!";
     }
 
-    public String updateDoctorData(Long doctorId,DoctorDto doctorDto){
+    public String updateDoctorData(Long doctorId, DoctorDto doctorDto) {
         Doctor doctor = doctorRepo.findById(doctorId)
-                .orElseThrow(()->new DoctorNotFoundException("Doctor does not exist!"));
-        if(doctorDto.getDoctorName()!=null){
+                .orElseThrow(() -> new DoctorNotFoundException("Doctor does not exist!"));
+        if (doctorDto.getDoctorName() != null) {
             doctor.setDoctorName(doctorDto.getDoctorName());
         }
-        if(doctorDto.getDoctorGender()!=null){
+        if (doctorDto.getDoctorGender() != null) {
             doctor.setDoctorGender(doctorDto.getDoctorGender());
         }
-        if(doctorDto.getDoctorSpecialization()!=null){
+        if (doctorDto.getDoctorSpecialization() != null) {
             doctor.setDoctorSpecialization(doctorDto.getDoctorSpecialization());
         }
-        if(doctorDto.getDoctorEmail()!=null){
+        if (doctorDto.getDoctorEmail() != null) {
             doctor.setDoctorEmail(doctorDto.getDoctorEmail());
         }
-        if(doctorDto.getDoctorPhoneNum()!=null){
+        if (doctorDto.getDoctorPhoneNum() != null) {
             doctor.setDoctorPhoneNum(doctorDto.getDoctorPhoneNum());
         }
-        if(doctorDto.getDoctorExperience()!=null){
+        if (doctorDto.getDoctorExperience() != null) {
             doctor.setDoctorExperience(doctorDto.getDoctorExperience());
         }
-        if(doctorDto.getDoctorDob()!=null){
+        if (doctorDto.getDoctorDob() != null) {
             doctor.setDoctorDob(doctorDto.getDoctorDob());
         }
         doctorRepo.save(doctor);
         return "Doctor data updated successfully!";
     }
 
-    public String deleteDoctorData(Long doctorId){
+    public String deleteDoctorData(Long doctorId) {
         Doctor doctor = doctorRepo.findById(doctorId)
-                .orElseThrow(()->new DoctorNotFoundException("Doctor does not exist!"));
+                .orElseThrow(() -> new DoctorNotFoundException("Doctor does not exist!"));
         doctorRepo.deleteById(doctorId);
         return "Doctor data deleted successfully!";
     }
